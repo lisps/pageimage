@@ -60,7 +60,9 @@ class helper_plugin_pageimage extends DokuWiki_Plugin {
             
             $ret .= '<a href="'.wl($id).'">';
             //add image tag
-            $ret .= '<img src="'.ml($src,array('w'=>$width,'h'=>$height)).'"';
+            //after merging of https://github.com/splitbrain/dokuwiki/pull/454
+            //$ret .= '<img src="'.ml($src,array('w'=>$width,'h'=>$height)).'"'; 
+            $ret .= '<img src="'.ml($src).'"';
             $ret .= ' class="media'.$align.'"';
 
             $ret .= ' style="';
