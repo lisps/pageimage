@@ -1,0 +1,4 @@
+pageimage
+=========
+
+Dokuwiki Plugin
