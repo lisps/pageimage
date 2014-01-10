@@ -1,0 +1,7 @@
+base    pageimage
+author  lisps
+email   
+date    2014-01-10
+name    Pageimage
+desc    Functions to return image for given page
+url     http://www.dokuwiki.org/plugin:pageimage
