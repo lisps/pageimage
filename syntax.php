@@ -28,7 +28,7 @@ class syntax_plugin_pageimage extends DokuWiki_Syntax_Plugin {
         $this->Lexer->addSpecialPattern('~~PAGEIMAGE:.*?~~', $mode, 'plugin_pageimage');
     }
 
-    function handle($match, $state, $pos, &$handler) {
+    function handle($match, $state, $pos, Doku_Handler &$handler) {
         $image = trim(substr($match, 12, -2));     // strip markup & whitespace
         $image = cleanID($image);
         if(!$image) return false;
@@ -43,7 +43,7 @@ class syntax_plugin_pageimage extends DokuWiki_Syntax_Plugin {
     * @param array          $data      The data from the handler function
     * @return bool If rendering was successful.
     */
-    function render($mode, &$renderer, $data) {
+    function render($mode, Doku_Renderer &$renderer, $data) {
         if ($data === false) return false;
 
         // XHTML output

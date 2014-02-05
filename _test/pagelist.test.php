@@ -1,4 +1,8 @@
 <?php
+/**
+ * @group plugin_pageimage
+ * @group plugins
+ */
 class helper_plugin_pageimage_pagelist_test extends DokuwikiTest {
     protected $pluginsEnabled = array('pageimage');
     
@@ -19,8 +23,8 @@ class helper_plugin_pageimage_pagelist_test extends DokuwikiTest {
         saveWikiText('pageimage:page','~~PAGEIMAGE:wiki:dokuwiki-128.png~~','Test setup');
 
         $image = $this->helper->td('pageimage:page');
-        $this->assertGreaterThan(0,strpos($image,'h=70'));
-        $this->assertGreaterThan(0,strpos($image,'media=wiki:dokuwiki-128.png'));
+        //$this->assertContains('h=70',$image);
+        $this->assertContains('media=wiki:dokuwiki-128.png',$image);
     }
 
 }

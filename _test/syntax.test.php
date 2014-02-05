@@ -1,4 +1,8 @@
 <?php
+/**
+ * @group plugin_pageimage
+ * @group plugins
+ */
 class syntax_plugin_pageimage_test extends DokuwikiTest {
     protected $pluginsEnabled = array('pageimage');
     
