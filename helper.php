@@ -9,9 +9,6 @@
 // must be run within Dokuwiki
 if (!defined('DOKU_INC')) die();
 
-if (!defined('DOKU_LF')) define('DOKU_LF', "\n");
-if (!defined('DOKU_TAB')) define('DOKU_TAB', "\t");
-
 class helper_plugin_pageimage extends DokuWiki_Plugin {
 
     function getMethods() {
@@ -40,7 +37,7 @@ class helper_plugin_pageimage extends DokuWiki_Plugin {
 
     /**
      * @param $id 
-     * @return the cell data for the Pagelist Plugin
+     * @return string the cell data for the Pagelist Plugin
      */
     function td($id) {
         $height = $this->getConf('height');
@@ -60,17 +57,22 @@ class helper_plugin_pageimage extends DokuWiki_Plugin {
             
             $ret .= '<a href="'.wl($id).'">';
             //add image tag
-            //after merging of https://github.com/splitbrain/dokuwiki/pull/454
-            //$ret .= '<img src="'.ml($src,array('w'=>$width,'h'=>$height)).'"'; 
-            $ret .= '<img src="'.ml($src).'"';
+            $ret .= '<img src="'.ml($src,array('w'=>$width,'h'=>$height)).'"';
             $ret .= ' class="media'.$align.'"';
 
+            // make left/right alignment for no-CSS view work (feeds)
+            if($align == 'right') $ret .= ' align="right"';
+            if($align == 'left')  $ret .= ' align="left"';
             $ret .= ' style="';
-            if ( !is_null($width) )
+            if ( !is_null($width) ) {
                 $ret .= ' width:'.hsc($width);
-
-            if ( !is_null($height) )
+			} else {
+				$ret .= ' max-width:200px;';
+			}
+			
+            if ( !is_null($height) ) {
                 $ret .= ' height:'.hsc($height);
+			} 
             $ret .= '" ';
             $ret .= ' />';
             $ret .= '</a>';
@@ -91,6 +93,7 @@ class helper_plugin_pageimage extends DokuWiki_Plugin {
      *
      **/
     function getImageID($id,$flags=array()){
+	$flags = array_merge(array('firstimage' => false),$flags);
         $src = p_get_metadata($id,'pageimage');
         if( !$src || ($src && !@file_exists(mediaFN($src))) ){
             $src = $id .'.jpg';
@@ -99,8 +102,7 @@ class helper_plugin_pageimage extends DokuWiki_Plugin {
                 if(!@file_exists(mediaFN($src))) {
                     $src = $id .'.jpeg';
                     if(!@file_exists(mediaFN($src))) {
-                        $src = p_get_metadata($id,'relation');
-                        $src = $src['firstimage'];
+                        $src = p_get_metadata($id,'relation firstimage');
                         if(!$flags['firstimage'] || !@file_exists(mediaFN($src))) {
                             return $this->getConf('default_image');
                         }
