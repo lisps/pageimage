@@ -44,7 +44,7 @@ class helper_plugin_pageimage extends DokuWiki_Plugin {
         $width = null;
         $align = 'center';
         $ret = '';
-        $src = $this->getImageID($id);
+        $src = $this->getImageID($id,array('firstimage' => 1));
         
         if(!$src) {
             $src = $this->getConf('default_image');
