@@ -57,7 +57,7 @@ class helper_plugin_pageimage extends DokuWiki_Plugin {
             
             $ret .= '<a href="'.wl($id).'">';
             //add image tag
-            $ret .= '<img src="'.ml($src,array('w'=>$width,'h'=>$height)).'"';
+            $ret .= '<img src="'.ml($src,array('width'=>$width,'height'=>$height)).'"';
             $ret .= ' class="media'.$align.'"';
 
             // make left/right alignment for no-CSS view work (feeds)
